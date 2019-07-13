@@ -1,0 +1,23 @@
+{
+  "name": "processmd_template_maker",
+  "version": "1.0.0",
+  "description": "processmd's template maker ",
+  "bin": {
+    "processmd_template_maker": "index.js"
+  },
+  "scripts": {
+    "lint": "prettier --write '*.js'"
+  },
+  "keywords": [
+    "processmd"
+  ],
+  "author": "nozo-moto",
+  "license": "ISC",
+  "dependencies": {
+    "command-line-args": "^5.1.1",
+    "readline-sync": "^1.4.9"
+  },
+  "devDependencies": {
+    "prettier": "^1.18.2"
+  }
+}
