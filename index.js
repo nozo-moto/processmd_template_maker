@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 "use strict";
 
+const fs = require("fs");
 const readlineSync = require("readline-sync");
 const commandLineArgs = require("command-line-args");
 const commandLineUsage = require("command-line-usage");
@@ -64,12 +65,12 @@ writer: ${writer}
 
 `;
 
-  filename = ``;
+  const filename = `${created_at}-${title}`;
   return [template, filename];
 }
 
 async function outputFile(template, filename) {
-  fs.writeFile(`${options.outputDir}/${filename}`, text, (err, data) => {
+  fs.writeFile(`${options.outputDir}/${filename}.md`, template, (err, data) => {
     if (err) console.log(err);
   });
 }
@@ -77,10 +78,9 @@ async function outputFile(template, filename) {
 async function main() {
   const [template, filename] = await create_template();
   await outputFile(template, filename);
-  console.log(template);
 }
 
-if (options.help) {
+if (options.help || !options.outputDir) {
   console.log(usage);
 } else {
   main();
