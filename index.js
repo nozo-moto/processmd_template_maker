@@ -2,6 +2,40 @@
 "use strict";
 
 const readlineSync = require("readline-sync");
+const commandLineArgs = require("command-line-args");
+const commandLineUsage = require("command-line-usage");
+const optionDefinitions = [
+  {
+    name: "help",
+    alias: "h",
+    type: Boolean
+  },
+  {
+    name: "outputDir",
+    alias: "o",
+    type: String
+  }
+];
+
+const sections = [
+  {
+    header: "processmd template maker",
+    content: "generate template of processmd for aizugeekdojo.github.io"
+  },
+  {
+    header: "Options",
+    optionList: [
+      {
+        name: "outputDir",
+        typeLabel: "{underline path}",
+        description: "The output template path."
+      }
+    ]
+  }
+];
+
+const options = commandLineArgs(optionDefinitions);
+const usage = commandLineUsage(sections);
 
 function to_double_digits(num) {
   num += "";
@@ -30,13 +64,24 @@ writer: ${writer}
 
 `;
 
-  return template;
+  filename = ``;
+  return [template, filename];
+}
+
+async function outputFile(template, filename) {
+  fs.writeFile(`${options.outputDir}/${filename}`, text, (err, data) => {
+    if (err) console.log(err);
+  });
 }
 
 async function main() {
-  const template = await create_template();
+  const [template, filename] = await create_template();
+  await outputFile(template, filename);
   console.log(template);
 }
 
-main();
-
+if (options.help) {
+  console.log(usage);
+} else {
+  main();
+}
