@@ -48,7 +48,7 @@ function to_double_digits(num) {
 
 async function create_template() {
   const title = readlineSync.question("Title: ");
-  const tags = readlineSync.question("Tag(カンマ区切り): ");
+  const keywords = readlineSync.question("keywords(カンマ区切り): ");
   const writer = readlineSync.question("writer: ");
   const now = new Date();
   const created_at = `${now.getFullYear()}-${to_double_digits(
@@ -58,7 +58,7 @@ async function create_template() {
   const template = `---
 title: ${title}
 created_at: ${created_at}
-tags: ${tags}
+keywords: ${keywords}
 description:
 writer: ${writer}
 ---
